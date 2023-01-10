@@ -61,14 +61,5 @@ public class Ghost {
 		} else if (direction == RIGHT) {
 			x += GHOST_SPEED;
 		}
-
-//		// Keep the ghost within the bounds of the maze
-//		x = Math.max(0, Math.min(MAZE_WIDTH - 1, x));
-//		y = Math.max(0, Math.min(MAZE_HEIGHT - 1, y));
-//
-//		// If the ghost hits a wall, choose a new direction
-//		if (maze[x][y] == 1) {
-//			direction = (int) (Math.random() * 4);
-//		}
 	}
 }
