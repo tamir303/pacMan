@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicIntegerArray;
+import java.util.stream.Collectors;
 
 public class Map {
 	
@@ -19,6 +20,21 @@ public class Map {
 	private final int Mark_CANDY = 2;
 	
 	final int TILE_SIZE = 24;
+	
+	private final AtomicIntegerArray pacStartLocation = new AtomicIntegerArray(new int[] 
+			{1, MAZE_HEIGHT - 2});
+	
+	private final AtomicIntegerArray ghostOneStartLoc = new AtomicIntegerArray(new int[] 
+			{1, 1});
+	
+	private final AtomicIntegerArray ghostTwoStartLoc = new AtomicIntegerArray(new int[] 
+			{1, MAZE_WIDTH - 2});
+	
+	private final AtomicIntegerArray ghostThreeStartLoc = new AtomicIntegerArray(new int[] 
+			{6, MAZE_WIDTH - 9});
+	
+	private final AtomicIntegerArray ghostFourStartLoc = new AtomicIntegerArray(new int[] 
+			{6 , 8});
 	
 	private int[][] mat_map = { 
 			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
@@ -42,22 +58,19 @@ public class Map {
 			{ 1, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1 },
 			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
 	
-	public void updateTile(int x, int y) {
-		
-	}
-	
 	public int[][] getMap() {
 		return mat_map;
 	}
 	
-	public int getPacStartX() {
-		return 1;
+	public ArrayList<AtomicIntegerArray> getGhostsStart() {
+		return new ArrayList<AtomicIntegerArray>(Arrays.asList(ghostOneStartLoc, 
+				ghostTwoStartLoc, ghostThreeStartLoc, ghostFourStartLoc));
 	}
 	
-	public int getPacStartY() {
-		return MAZE_HEIGHT - 2;
+	public AtomicIntegerArray getPacStart() {
+		return pacStartLocation;
 	}
-
+	
 	public Color getColor_EMPTY() {
 		return Color_EMPTY;
 	}
