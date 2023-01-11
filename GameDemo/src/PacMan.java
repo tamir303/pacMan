@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicIntegerArray;
 
 import javax.imageio.ImageIO;
 
@@ -19,5 +20,11 @@ public class PacMan extends Character {
 
 		direction = DIRECTION.STOP.getValue();
 		this.speed = speed;
+	}
+
+	public void moveToStartPosition(AtomicIntegerArray atomicIntegerArray) {
+		direction = DIRECTION.STOP.getValue();
+		x = atomicIntegerArray.get(0);
+		y = atomicIntegerArray.get(1);
 	}
 }

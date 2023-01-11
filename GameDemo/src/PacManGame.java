@@ -1,30 +1,28 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.nio.channels.NonWritableChannelException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicIntegerArray;
-import java.util.stream.Collectors;
+import java.util.function.Function;
 
 public class PacManGame extends GameState {
 
 	boolean active;
 
-	private int score;
-	private int lifes;
+	private int SCORE;
+	private int PAC_LIFE;
 
-	public final int PAC_MAN_SPEED = 1;
-	public final int GHOST_SPEED = 1;
-	public final int GAME_LIFES = 3;
+	private final int PAC_MAN_SPEED = 1;
+	private final int GHOST_SPEED = 1;
+	private final int GAME_LIFES = 3;
 
 	private Map map;
 	private PacMan pacMan;
 	private List<Ghost> ghosts;
 	private List<Candy> candys;
-
+	
 	@Override
 	public void enter(Object memento) {
 		active = true;
@@ -53,7 +51,14 @@ public class PacManGame extends GameState {
 		if (!detect_WALL_Collision()) {
 			pacMan.update(deltaTime);
 			if (detect_CANDY_Collision())
-				score = candys.size();
+				SCORE = candys.size();
+			if (detect_GHOST_Collision()) {
+				PAC_LIFE--;
+				if (PAC_LIFE == 0) // GAME OVER
+					active = false;
+				else 
+					pacMan.moveToStartPosition(map.getPacStart());
+			}
 		}
 	}
 
@@ -80,25 +85,10 @@ public class PacManGame extends GameState {
 	@Override
 	public void render(GameFrameBuffer frameBuffer) {
 		Graphics2D g = frameBuffer.graphics();
-
 		// Clear the screen
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, frameBuffer.getWidth(), frameBuffer.getHeight());
-
-		// Draw the map
-		paintMap(g);
-
-		// Draw Candys
-		paintCandys(g);
-
-		// Draw Pac-Man
-		paintPacMan(g);
-
-		// Draw Ghots
-		paintGhost(g);
-
-		// Draw Score
-		paintScoreLife(frameBuffer);
+		paintGame(frameBuffer);
 	}
 
 	// INITS
@@ -113,8 +103,8 @@ public class PacManGame extends GameState {
 	}
 
 	private void initScoreLife() {
-		this.score = candys.size();
-		this.lifes = GAME_LIFES;
+		this.SCORE = candys.size();
+		this.PAC_LIFE = GAME_LIFES;
 	}
 
 	private void initCandys() {
@@ -131,14 +121,28 @@ public class PacManGame extends GameState {
 	}
 
 	// GRAPHICS
+	
+	private void paintGame(GameFrameBuffer frameBuffer) {
+		Graphics2D g = frameBuffer.graphics();
+		// Draw the map
+		paintMap(g);
+		// Draw Candys
+		paintCandys(g);
+		// Draw Pac-Man
+		paintPacMan(g);
+		// Draw Ghots
+		paintGhost(g);
+		// Draw Score
+		paintScoreLife(frameBuffer);		
+	}
 
 	private void paintScoreLife(GameFrameBuffer fb) {
-		String scoreText = String.format("Score: %d", score);
-		String lifeText = String.format("Life: %d", lifes);
+		String scoreText = String.format("Candys left: %d", SCORE);
+		String lifeText = String.format("Life: %d", PAC_LIFE);
 		int scoreTextWidth = fb.graphics().getFontMetrics().stringWidth(scoreText);
 		int lifeTextWidth = fb.graphics().getFontMetrics().stringWidth(lifeText);
 		fb.graphics().setColor(Color.white);
-		fb.graphics().drawString(scoreText, (fb.getWidth() - scoreTextWidth) / 2 - 30, 15);
+		fb.graphics().drawString(scoreText, (fb.getWidth() - scoreTextWidth) / 2 - 50, 15);
 		fb.graphics().drawString(lifeText, (fb.getWidth() - lifeTextWidth) / 2 + 30, 15);
 	}
 
@@ -203,7 +207,9 @@ public class PacManGame extends GameState {
 		return false;
 	}
 
-	private void detect_GHOST_Collision() {
-
+	private boolean detect_GHOST_Collision() {
+		int x = (int) pacMan.getX(), y = (int) pacMan.getY();
+		return ghosts.stream().filter(ghost -> 
+				(int)ghost.getX() == x && (int)ghost.getY() == y).findAny().isPresent();
 	}
 }
