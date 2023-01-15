@@ -6,8 +6,9 @@ import javax.imageio.ImageIO;
 public class Ghost extends Character {
 	
 	public static int ghost_Id = 1;
+	private GhostStateMachineInterface ghostStateMachine;
 
-	public Ghost(int startX, int startY, float speed) {
+	public Ghost(int startX, int startY, float speed, GhostStateMachineInterface gsm ) {
 		// Load the Ghost image
 		try {
 			String ghostImage = String.format("ghost%d.png", ghost_Id);
@@ -23,5 +24,12 @@ public class Ghost extends Character {
 
 		direction = DIRECTION.STOP.getValue();
 		this.speed = speed;
+		this.ghostStateMachine = gsm;
+	}
+	
+	public void update(boolean wallHit, DIRECTION nextDirection, long deltaTime)
+	{
+		this.direction = ghostStateMachine.nextState(wallHit, nextDirection).getValue();
+		super.update(deltaTime);	
 	}
 }
