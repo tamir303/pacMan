@@ -23,7 +23,6 @@ public class Ghost extends Character {
 		x = startX;
 		y = startY;
 
-		direction = DIRECTION.STOP.getValue();
 		this.speed = speed;
 	}
 	
@@ -31,9 +30,9 @@ public class Ghost extends Character {
 		this.ghostStateMachine = gsm;
 	}
 	
-	public void update(boolean wallHit, DIRECTION nextDirection, long deltaTime)
+	public void update(boolean wallHit, DIRECTION nextDirection, boolean[] canMoveTo ,long deltaTime)
 	{
-		this.direction = ghostStateMachine.nextState(wallHit, nextDirection).getValue();
+		this.direction = ghostStateMachine.nextState(wallHit, canMoveTo, nextDirection).getValue();
 		super.update(deltaTime);	
 	}
 	

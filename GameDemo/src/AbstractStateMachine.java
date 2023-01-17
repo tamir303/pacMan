@@ -14,4 +14,8 @@ public abstract class AbstractStateMachine {
 		return currentState;
 	}
 	
+	public void setState(DIRECTION newState) {
+		this.currentState = newState;
+	}
+	
 }
