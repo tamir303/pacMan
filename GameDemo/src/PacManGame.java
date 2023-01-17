@@ -56,12 +56,13 @@ public class PacManGame extends GameState {
 			pacMan.update(deltaTime);
 			if (collisions.detect_CANDY_Collision())
 				SCORE = candys.size();
-			if (collisions.detect_GHOST_Collision()) {
-				if (--PAC_LIFE == 0)
-					active = false; // GAME OVER
-				else
-					pacMan.moveToStartPosition(map.getPacStart());
-			}
+		}
+		
+		if (collisions.detect_GHOST_Collision()) {
+			if (--PAC_LIFE == 0)
+				active = false; // GAME OVER
+			else
+				pacMan.moveToStartPosition(map.getPacStart());
 		}
 	
 		ghosts.stream().forEach(ghost -> 
@@ -129,7 +130,7 @@ public class PacManGame extends GameState {
 	}
 
 	private void initPacMan() {
-		this.pacMan = new PacMan(map.getPacStart().get(0) + 1, map.getPacStart().get(1), PAC_MAN_SPEED);
+		this.pacMan = new PacMan(map.getPacStart().get(0), map.getPacStart().get(1), PAC_MAN_SPEED);
 	}
 	
 	// UTILS
