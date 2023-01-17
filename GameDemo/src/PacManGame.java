@@ -1,11 +1,14 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicIntegerArray;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class PacManGame extends GameState {
 
@@ -38,6 +41,7 @@ public class PacManGame extends GameState {
 		initGhosts(numberOfGhosts);
 		collisions = new GameCollisions(this);
 		graphics = new GameGraphics(this);
+		playMusic();
 	}
 
 	@Override
@@ -131,6 +135,19 @@ public class PacManGame extends GameState {
 
 	private void initPacMan() {
 		this.pacMan = new PacMan(map.getPacStart().get(0), map.getPacStart().get(1), PAC_MAN_SPEED);
+	}
+	
+	private void playMusic() {
+	    try {
+	    	AudioInputStream music = AudioSystem.getAudioInputStream(new File("music.wav"));
+	    	Clip clip = AudioSystem.getClip();
+	    	clip.open(music);
+	    	clip.start();
+	    	clip.loop(Clip.LOOP_CONTINUOUSLY);
+	    }
+	    catch (Exception e) {
+	    	System.out.println("MUSIC FILE NOT FOUND");
+	    }
 	}
 	
 	// UTILS
