@@ -9,7 +9,7 @@ public class PacMan extends Character {
 	public PacMan(int startX, int startY, float speed) {
 		// Load the Pac-Man image
 		try {
-			image = ImageIO.read(new File("pacman.png"));
+			image = ImageIO.read(new File("pacman_right.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -20,6 +20,17 @@ public class PacMan extends Character {
 
 		direction = DIRECTION.STOP.getValue();
 		this.speed = speed;
+	}
+	
+	public void setDirection(int direction) {
+		String image_name = "pacman_" + DIRECTION.values()[direction].toString().toLowerCase() + ".png";
+		
+		try {
+			this.image = ImageIO.read(new File(image_name));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		super.setDirection(direction);
 	}
 
 	public void moveToStartPosition(AtomicIntegerArray atomicIntegerArray) {
