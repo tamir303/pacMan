@@ -1,6 +1,6 @@
 
 public interface GhostStateMachineInterface {
 	
-	public DIRECTION nextState(boolean wallHit, DIRECTION nextDirection);
+	public DIRECTION nextState(boolean wallHit, boolean[] canMoveTo, DIRECTION nextDirection);
 
 }
