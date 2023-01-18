@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 public class Ghost extends Character {
@@ -26,13 +25,12 @@ public class Ghost extends Character {
 		this.speed = speed;
 	}
 	
-	public void setGhostStateMachine(GhostStateMachineInterface gsm) {
-		this.ghostStateMachine = gsm;
+	public void setGhostStateMachine(DIRECTION init) {
+		this.ghostStateMachine = new RandomMachine(init);
 	}
 	
-	public void update(boolean wallHit, DIRECTION nextDirection, boolean[] canMoveTo ,long deltaTime)
-	{
-		this.direction = ghostStateMachine.nextState(wallHit, canMoveTo, nextDirection).getValue();
+	public void update(boolean wallHit, boolean[] canMoveTo ,long deltaTime) {
+		this.direction = ghostStateMachine.nextState(wallHit, canMoveTo).getValue();
 		super.update(deltaTime);	
 	}
 	

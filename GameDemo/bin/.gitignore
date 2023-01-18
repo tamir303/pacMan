@@ -20,3 +20,8 @@
 /SmartMachine.class
 /GameCollisions.class
 /GameGraphics.class
+/SmartMachine$DFS.class
+/SmartMachine$BFS.class
+/SmartMachine$BFS$Graph.class
+/SmartMachine$BFS$Node.class
+/SmartMachine$BFS$Node$Graph.class
