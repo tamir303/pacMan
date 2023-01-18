@@ -1,11 +1,15 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicIntegerArray;
+
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -89,16 +93,21 @@ public class PacManGame extends GameState {
 			pacMan.setDirection(DIRECTION.RIGHT.getValue());
 			break;
 		default:
-			System.out.println("Key not bonded");
+			System.out.println("KEY NOT BONDED");
 		}
 	}
 
 	@Override
 	public void render(GameFrameBuffer frameBuffer) {
 		Graphics2D g = frameBuffer.graphics();
-		// Clear the screen
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, frameBuffer.getWidth(), frameBuffer.getHeight());
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(new File("background.png"));
+			g.drawImage(image, 0, 0, frameBuffer.getWidth(), frameBuffer.getHeight(), null);
+		} catch (IOException e) {
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, frameBuffer.getWidth(), frameBuffer.getHeight());
+		}
 		graphics.paintGame(frameBuffer);
 	}
 
