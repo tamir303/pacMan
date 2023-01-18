@@ -70,7 +70,7 @@ public class PacManGame extends GameState {
 		}
 	
 		ghosts.stream().forEach(ghost -> 
-		ghost.update(collisions.detect_WALL_Collision(ghost), ghostHint(ghost), canMoveTo(ghost) ,deltaTime));
+		ghost.update(collisions.detect_WALL_Collision(ghost), canMoveTo(ghost) ,deltaTime));
 	}
 
 	@Override
@@ -111,12 +111,7 @@ public class PacManGame extends GameState {
 			AtomicIntegerArray loc = it.next();
 			ghosts.add(new Ghost(loc.get(1), loc.get(0), GHOST_SPEED));
 		}
-		ghosts.stream().forEach(ghost -> {
-			if (ghost.getGhostId() == 1)
-				ghost.setGhostStateMachine(new RandomMachine(DIRECTION.DOWN));
-			else
-				ghost.setGhostStateMachine(new RandomMachine(DIRECTION.RIGHT));
-		});
+		ghosts.stream().forEach(ghost -> {ghost.setGhostStateMachine(DIRECTION.DOWN);});
 	}
 
 	private void initScoreLife() {
@@ -151,22 +146,6 @@ public class PacManGame extends GameState {
 	}
 	
 	// UTILS
-
-	private DIRECTION ghostHint(Ghost ghost) {
-		// returns where the ghost should go to catch pac-man
-		int horizon = (int) Math.signum(ghost.getY() - pacMan.getY());
-		int vertical = (int) Math.signum(ghost.getX() - pacMan.getX());
-		switch (horizon) {
-		case 1: // below
-			return DIRECTION.UP;
-		case -1: // above
-			return DIRECTION.DOWN;
-		default: // same hight
-			if (vertical  == 1) // pac is on left
-				return DIRECTION.LEFT;
-			return DIRECTION.RIGHT;
-		}
-	}
 	
 	private boolean[] canMoveTo(Ghost ghost) {
 		boolean[] CMT = {false, false, false, false, false};

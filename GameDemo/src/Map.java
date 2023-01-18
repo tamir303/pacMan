@@ -1,10 +1,7 @@
 import java.awt.Color;
-import java.awt.Graphics2D;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicIntegerArray;
-import java.util.stream.Collectors;
 
 public class Map {
 	
@@ -31,7 +28,7 @@ public class Map {
 			{1, MAZE_WIDTH - 2});
 	
 	private final AtomicIntegerArray ghostThreeStartLoc = new AtomicIntegerArray(new int[] 
-			{6, MAZE_WIDTH - 9});
+			{MAZE_HEIGHT - 2, MAZE_WIDTH - 2});
 	
 	private final AtomicIntegerArray ghostFourStartLoc = new AtomicIntegerArray(new int[] 
 			{6 , 8});
@@ -48,11 +45,11 @@ public class Map {
 			{ 1, 2, 0, 1, 2, 0, 0, 2, 1, 0, 2, 0, 1, 2, 2, 2, 0, 0, 0, 0, 1, 0, 0, 2, 2, 2, 1 },
 			{ 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 1, 2, 0, 1, 0, 2, 1 },
 			{ 1, 0, 2, 0, 2, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 2, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 2, 1, 0, 0, 0, 1, 0, 0, 1 },
+			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 2, 0, 0, 0, 0, 1, 0, 0, 1 },
 			{ 1, 0, 2, 0, 0, 2, 0, 0, 2, 1, 0, 1, 1, 1, 1, 1, 0, 1, 2, 2, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 2, 2, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1 },
+			{ 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 2, 2, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1 },
 			{ 1, 0, 2, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 2, 2, 0, 1, 1, 0, 0, 0, 2, 0, 1, 1, 1, 1, 1, 2, 0, 0, 1, 1, 0, 0, 0, 1, 1 },
+			{ 1, 0, 2, 2, 0, 1, 1, 0, 0, 0, 2, 0, 1, 1, 1, 1, 2, 2, 0, 0, 1, 1, 0, 0, 0, 0, 1 },
 			{ 1, 0, 0, 0, 0, 1, 1, 0, 2, 0, 0, 0, 1, 0, 2, 2, 2, 2, 0, 0, 1, 1, 0, 0, 2, 2, 1 },
 			{ 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 1, 1, 1, 1, 1, 1, 2, 1 },
 			{ 1, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 2, 0, 1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1 },

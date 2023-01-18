@@ -12,13 +12,18 @@ public class RandomMachine extends AbstractStateMachine implements GhostStateMac
 		rand = new Random();
 	}
 
-	public DIRECTION nextState(boolean wallHit, boolean[] canMoveTo ,DIRECTION nextDirection) {
+	public DIRECTION nextState(boolean wallHit, boolean[] canMoveTo) {
 		if (!wallHit) 
 			return currentState();
+		
+		// filter for possible direction to move
 		List<DIRECTION> moveAbleDirection = Arrays.asList(DIRECTION.values()).stream().filter(direction -> 	
-												canMoveTo[direction.getValue()]).collect(Collectors.toList());
-		nextDirection = moveAbleDirection.get(rand.nextInt(moveAbleDirection.size()));
+		canMoveTo[direction.getValue()]).collect(Collectors.toList());
+		
+		// randomly choose the next direction
+		DIRECTION nextDirection = moveAbleDirection.get(rand.nextInt(moveAbleDirection.size()));
 		setState(nextDirection);
 		return nextDirection;
 	}
+
 }
