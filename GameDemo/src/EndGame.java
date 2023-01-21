@@ -38,45 +38,21 @@ public class EndGame extends GameState {
 	public boolean isActive() { return active; }
 	
 	public String next() {
-		return "WelcomeState";
+		return "Welcome";
 	}
 	
-	/*public void render(GameFrameBuffer aGameFrameBuffer) {
+	public void render(GameFrameBuffer aGameFrameBuffer) {
 
-		/*Graphics g = aGameFrameBuffer.graphics();
+		Graphics g = aGameFrameBuffer.graphics();
 		BufferedImage image = null;
 		try {
 			image = ImageIO.read(new File("pac-man-game-over.jpg"));
 			g.drawImage(image, 0, 0, aGameFrameBuffer.getWidth(), aGameFrameBuffer.getHeight(), null);
 		} catch (IOException e) {
 			g.setColor(Color.BLACK);
-			g.fillRect(0, 0, aGameFrameBuffer.getWidth(), aGameFrameBuffer.getHeight());*
+			g.fillRect(0, 0, aGameFrameBuffer.getWidth(), aGameFrameBuffer.getHeight());
 		}
 	}   
 
-}*/
-	public void createAndShowGUI() {
-        JButton button = new JButton("Text");
-        button.setSize(button.getPreferredSize());
-
-        JLabel label = new JLabel();
-        label.setIcon(new ImageIcon(snapshot(button)));
-
-        JPanel contentPane = new JPanel();
-        contentPane.add(label);
-
-        JFrame frame = new JFrame();
-        frame.setContentPane(contentPane);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setLocationByPlatform(true);
-        frame.setVisible(true);
-    }
-
-    private BufferedImage snapshot(Component component) {
-        BufferedImage image = new BufferedImage(component.getWidth(), component.getHeight(),
-                BufferedImage.TYPE_INT_RGB);
-        component.paint(image.createGraphics());
-        return image;
-    }
 }
+

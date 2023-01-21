@@ -11,6 +11,11 @@ import javax.imageio.ImageIO;
 public class WelcomeState extends GameState {
 
 	boolean active;
+	String next;
+	
+	public WelcomeState() {
+		next = "Welcome";
+	}
 	
 	public void enter(Object memento) {
 		active = true;
@@ -22,13 +27,26 @@ public class WelcomeState extends GameState {
 		
 		active = false;
 	}
-	
+	@Override
+	public void processKeyPressed(int keyCode) {
+		switch (keyCode) {
+		case KeyEvent.VK_E:
+			next = "Easy";
+			break;
+		case KeyEvent.VK_M:
+			next = "Medium";
+			break;
+		case KeyEvent.VK_H:
+			next = "Hard";
+			break;
+		default:
+			next = "Welcome";
+		}
+	}
 	public boolean isActive() { return active; }
 	
 	public String next() {
-		return "end game";
-		//return "Play";
-		//return "Welcome";
+		return next;
 	}
 
 	public void render(GameFrameBuffer aGameFrameBuffer) {

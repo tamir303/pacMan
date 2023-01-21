@@ -3,12 +3,18 @@ public class DemoGame extends Game {
 
 	public DemoGame() {
 		GameState welcome = new WelcomeState();
-		GameState play = new PacManGame();
+		//GameState play = new PacManGame();
+		GameState easy = new PacManGame();// for easy level
+		GameState medium = new PacManGame();// for medium level
+		GameState hard= new PacManGame();// for hard level
 		GameState endGame= new EndGame();
 
-		stateMachine.installState("Play", play);
+		//stateMachine.installState("Play", play);
 		stateMachine.installState("Welcome", welcome);
-		stateMachine.installState("end game", endGame);
+		stateMachine.installState("Easy", easy);
+		stateMachine.installState("Medium", medium);
+		stateMachine.installState("Hard", hard);
+		stateMachine.installState("EndGame", endGame);
 		stateMachine.setStartState(welcome);
 	}
 	
