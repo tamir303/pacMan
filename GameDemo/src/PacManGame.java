@@ -23,7 +23,7 @@ public class PacManGame extends GameState {
 
 	protected final int PAC_MAN_SPEED = 1;
 	protected final int GHOST_SPEED = 1;
-	protected final int GAME_LIFES;
+	protected final int NUMBER_OF_GHOSTS = 3;
 
 	protected Map map;
 	protected PacMan pacMan;
@@ -32,21 +32,17 @@ public class PacManGame extends GameState {
 	
 	private GameCollisions collisions;
 	private GameGraphics graphics;
-
-	public PacManGame(int gameLife) {
-		GAME_LIFES = gameLife;
-	}
+	private Clip clip;
 	
 	@Override
 	public void enter(Object memento) {
 		active = true;
-		int numberOfGhosts = 3;
-
+		
 		map = new Map();
 		initPacMan();
 		initCandys();
-		initScoreLife();
-		initGhosts(numberOfGhosts);
+		initScoreLife((int)memento);
+		initGhosts(NUMBER_OF_GHOSTS);
 		collisions = new GameCollisions(this);
 		graphics = new GameGraphics(this);
 		playMusic();
@@ -76,8 +72,10 @@ public class PacManGame extends GameState {
 		}
 		
 		if (collisions.detect_GHOST_Collision()) {
-			if (--PAC_LIFE == 0)
+			if (--PAC_LIFE == 0 || SCORE == 0) {
 				active = false; // GAME OVER
+				clip.stop();
+			}
 			else
 				pacMan.moveToStartPosition(map.getPacStart());
 		}
@@ -130,11 +128,12 @@ public class PacManGame extends GameState {
 			ghosts.add(new Ghost(loc.get(1), loc.get(0), GHOST_SPEED));
 		}
 		ghosts.stream().forEach(ghost -> {ghost.setGhostStateMachine(DIRECTION.DOWN);});
+		Ghost.static_ghost_Id %= NUMBER_OF_GHOSTS;
 	}
 
-	private void initScoreLife() {
+	private void initScoreLife(int lifes) {
 		this.SCORE = candys.size();
-		this.PAC_LIFE = GAME_LIFES;
+		this.PAC_LIFE = lifes;
 	}
 
 	private void initCandys() {
@@ -153,7 +152,7 @@ public class PacManGame extends GameState {
 	private void playMusic() {
 	    try {
 	    	AudioInputStream music = AudioSystem.getAudioInputStream(new File("music.wav"));
-	    	Clip clip = AudioSystem.getClip();
+	    	clip = AudioSystem.getClip();
 	    	clip.open(music);
 	    	clip.start();
 	    	clip.loop(Clip.LOOP_CONTINUOUSLY);

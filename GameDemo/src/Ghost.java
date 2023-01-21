@@ -11,7 +11,7 @@ public class Ghost extends Character {
 	public Ghost(int startX, int startY, float speed) {
 		// Load the Ghost image
 		try {
-			ghost_Id = ++static_ghost_Id;
+			ghost_Id = ++static_ghost_Id; 
 			String ghostImage = String.format("ghost%d.png", ghost_Id);
 			image = ImageIO.read(new File(ghostImage));
 		} catch (IOException e) {

@@ -5,45 +5,53 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
 public class WelcomeState extends GameState {
 
 	boolean active;
-	String next = "Welcome";
+	String next = "Play", difficulty;
+	HashMap<String, Integer> diff_to_health;
 	
 	public void enter(Object memento) {
 		active = true;
+		setDifficulty ();
 	}
 	
-	public void processKeyReleased(int aKeyCode) {
-		if (aKeyCode == KeyEvent.VK_ESCAPE)
-			System.exit(0);
-		
-		active = false;
+	private void setDifficulty() {
+		diff_to_health = new HashMap<String, Integer>();	
+		diff_to_health.put("Easy", 3);
+		diff_to_health.put("Medium", 2);
+		diff_to_health.put("Hard", 1);
 	}
+
 	@Override
-	public void processKeyPressed(int keyCode) {
-		switch (keyCode) {
+	public void processKeyReleased(int aKeyCode) {
+		switch (aKeyCode) {
 		case KeyEvent.VK_E:
-			next = "Easy";
+			difficulty = "Easy";
+			active = false;
 			break;
 		case KeyEvent.VK_M:
-			next = "Medium";
+			difficulty = "Medium";
+			active = false;
 			break;
 		case KeyEvent.VK_H:
-			next = "Hard";
+			difficulty = "Hard";
+			active = false;
 			break;
 		default:
-			next = "Welcome";
+			System.out.println("KEY NOT BONDED");
 			break;
 		}
 	}
+	
 	public boolean isActive() { return active; }
 	
 	public String next() {
-		return next;
+		return "Play";
 	}
 
 	public void render(GameFrameBuffer aGameFrameBuffer) {
@@ -69,7 +77,10 @@ public class WelcomeState extends GameState {
 		g.drawString("E - Easy", 150,300 );
 		g.drawString("M - Medium", 300,300 );
 		g.drawString("H - Hard", 450,300 );
-
-		
+	}
+	
+	@Override
+	public Object memento() {
+		return diff_to_health.get(difficulty);
 	}
 }

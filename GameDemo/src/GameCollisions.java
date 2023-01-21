@@ -43,8 +43,8 @@ public final class GameCollisions {
 		}
 
 		public boolean detect_GHOST_Collision() {
-			int x = (int) game.pacMan.getX(), y = (int) game.pacMan.getY();
+			float x = game.pacMan.getX(), y = game.pacMan.getY();
 			return game.ghosts.stream().filter(ghost -> 
-			(int)ghost.getX() == x && (int)ghost.getY() == y).findAny().isPresent();
+			Math.abs(ghost.getX() - x) < 1 && Math.abs(ghost.getY() - y) < 1).findAny().isPresent();
 		}
 }
