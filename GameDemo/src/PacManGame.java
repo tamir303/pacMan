@@ -23,7 +23,7 @@ public class PacManGame extends GameState {
 
 	protected final int PAC_MAN_SPEED = 1;
 	protected final int GHOST_SPEED = 1;
-	protected final int GAME_LIFES = 3;
+	protected final int GAME_LIFES;
 
 	protected Map map;
 	protected PacMan pacMan;
@@ -33,6 +33,10 @@ public class PacManGame extends GameState {
 	private GameCollisions collisions;
 	private GameGraphics graphics;
 
+	public PacManGame(int gameLife) {
+		GAME_LIFES = gameLife;
+	}
+	
 	@Override
 	public void enter(Object memento) {
 		active = true;
@@ -53,6 +57,11 @@ public class PacManGame extends GameState {
 		GameInput.instance().processInput(this);
 	}
 
+	@Override
+	public String next() {
+		return "EndGame";
+	}
+	
 	public boolean isActive() {
 		return active;
 	}
