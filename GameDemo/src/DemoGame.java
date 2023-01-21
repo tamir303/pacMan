@@ -4,9 +4,11 @@ public class DemoGame extends Game {
 	public DemoGame() {
 		GameState welcome = new WelcomeState();
 		GameState play = new PacManGame();
+		GameState endGame= new EndGame();
 
 		stateMachine.installState("Play", play);
 		stateMachine.installState("Welcome", welcome);
+		stateMachine.installState("end game", endGame);
 		stateMachine.setStartState(welcome);
 	}
 	

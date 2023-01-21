@@ -26,7 +26,9 @@ public class WelcomeState extends GameState {
 	public boolean isActive() { return active; }
 	
 	public String next() {
-		return "Play";
+		return "end game";
+		//return "Play";
+		//return "Welcome";
 	}
 
 	public void render(GameFrameBuffer aGameFrameBuffer) {
@@ -54,7 +56,6 @@ public class WelcomeState extends GameState {
 		g.drawString("easy", 105,300 );
 		g.drawString("medium", 300,300 );
 		g.drawString("Hard", 505,300 );
-
 
 		
 	}
