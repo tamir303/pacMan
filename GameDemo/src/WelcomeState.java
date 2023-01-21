@@ -11,11 +11,7 @@ import javax.imageio.ImageIO;
 public class WelcomeState extends GameState {
 
 	boolean active;
-	String next;
-	
-	public WelcomeState() {
-		next = "Welcome";
-	}
+	String next = "Welcome";
 	
 	public void enter(Object memento) {
 		active = true;
@@ -41,6 +37,7 @@ public class WelcomeState extends GameState {
 			break;
 		default:
 			next = "Welcome";
+			break;
 		}
 	}
 	public boolean isActive() { return active; }
@@ -63,17 +60,15 @@ public class WelcomeState extends GameState {
 		}
 		
 		g.setColor(Color.YELLOW);
-		g.fillRect(80, 275, 80, 40);
-		g.fillRect(280, 275, 80, 40);
-		g.fillRect(480, 275, 80, 40);
+		g.fillRect(120, 250, 400, 100);
 		String chooseLevel = "please choose your level";
 		int textWidth = g.getFontMetrics().stringWidth(chooseLevel);
 		g.setColor(Color.white);
 		g.drawString(chooseLevel, (aGameFrameBuffer.getWidth()/2-textWidth/2), aGameFrameBuffer.getHeight()/2);
 		g.setColor(Color.BLACK);
-		g.drawString("easy", 105,300 );
-		g.drawString("medium", 300,300 );
-		g.drawString("Hard", 505,300 );
+		g.drawString("E - Easy", 150,300 );
+		g.drawString("M - Medium", 300,300 );
+		g.drawString("H - Hard", 450,300 );
 
 		
 	}

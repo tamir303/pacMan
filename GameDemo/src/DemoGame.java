@@ -4,9 +4,9 @@ public class DemoGame extends Game {
 	public DemoGame() {
 		GameState welcome = new WelcomeState();
 		//GameState play = new PacManGame();
-		GameState easy = new PacManGame();// for easy level
-		GameState medium = new PacManGame();// for medium level
-		GameState hard= new PacManGame();// for hard level
+		GameState easy = new PacManGame(3);// for easy level
+		GameState medium = new PacManGame(2);// for medium level
+		GameState hard= new PacManGame(1);// for hard level
 		GameState endGame= new EndGame();
 
 		//stateMachine.installState("Play", play);

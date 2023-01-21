@@ -7,8 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 
-import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -52,6 +50,13 @@ public class EndGame extends GameState {
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, aGameFrameBuffer.getWidth(), aGameFrameBuffer.getHeight());
 		}
+		g.setColor(Color.YELLOW);
+		g.fillRect(120, 100, 400, 100);
+		g.setColor(Color.RED);
+		String startGame = "press any key to restart game";
+		int textWidth = g.getFontMetrics().stringWidth(startGame);
+		g.drawString(startGame, 230,150 );
+
 	}   
 
 }
